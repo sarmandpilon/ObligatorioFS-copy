@@ -46,17 +46,22 @@ const doObtenerSesiones = async (query) => {
     if (tipoEntrenamiento) {
         filtro.tipoEntrenamiento = tipoEntrenamiento
     }
-    //paginacion, muestra de a 10 sesiones por pagina para no mostrar todo junto
+    page = Number(page)
+    limit = Number(limit)
+    const skip = (page - 1) * limit
+
     const total = await Sesion.countDocuments(filtro)
     const sesiones = await Sesion.find(filtro)
-        .skip((page - 1) * limit)
-        .limit(parseInt(limit))
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
 
     return {
+        sesiones: sesiones.map(sesionDto),
+        page,
+        limit,
         total,
-        page: parseInt(page),
-        limit: parseInt(limit),
-        data: sesiones.map(sesionDto)
+        totalPaginas: Math.ceil(total / limit)
     }
 }
 
