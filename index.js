@@ -15,7 +15,10 @@ app.use(express.json())
 
 app.use(logMiddleware)
 
-// Rutas públicas 
+// Ping público
+app.get('/ping', (req, res) => res.json({ message: 'pong' }))
+
+// Rutas públicas
 app.use('/v1', authRouterV1)
 
 // Rutas privadas
