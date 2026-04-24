@@ -5,7 +5,7 @@ const usuarioDto = (usuario) => {
         email: usuario.email,
         rol: usuario.rol,
         plan: usuario.plan,
-        fotoUrl: usuario.fotoUrl,
+        fotoPerfil: usuario.fotoPerfil,
         createdAt: usuario.createdAt
     }
 }

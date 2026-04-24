@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const tipoEntrenamientoSchema = new mongoose.Schema({
     nombre: { type: String, required: true, unique: true },
-    descripcion: { type: String, required: true }
+    descripcion: { type: String }
 }, {
     timestamps: true,
-    collection: "tipos-entrenamiento"
+    collection: 'tipos_entrenamiento'
 })
 
-const TipoEntrenamiento = mongoose.model("TipoEntrenamiento", tipoEntrenamientoSchema)
+const TipoEntrenamiento = mongoose.model('TipoEntrenamiento', tipoEntrenamientoSchema)
 
 export { TipoEntrenamiento }

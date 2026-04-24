@@ -1,58 +1,70 @@
-import * as sesionesService from "../services/sesiones.service.v1.js"
+import {doCrearSesion,
+        doObtenerSesiones,
+        doObtenerSesionPorId,
+        doModificarSesion,
+        doEliminarSesion,
+        doGenerarSesionConIA } from '../services/sesiones.service.js'
 
-const obtenerSesiones = async (req, res) => {
+const crearSesion = async (req, res) => {
     try {
-        const { page, limit, alumnoEmail, tipoEntrenamiento } = req.query
-        const resultado = await sesionesService.obtenerSesiones(page, limit, alumnoEmail, tipoEntrenamiento)
-        res.status(200).json(resultado)
-    } catch (e) {
-        res.status(500).json({ message: e.message })
-    }
-}
-
-const obtenerPorId = async (req, res) => {
-    try {
-        const sesion = await sesionesService.obtenerPorId(req.params.id)
-        res.status(200).json(sesion)
-    } catch (e) {
-        res.status(e.code || 500).json({ message: e.message })
-    }
-}
-
-const crear = async (req, res) => {
-    try {
-        const sesion = await sesionesService.crear(req.body)
-        res.status(201).json(sesion)
+        const nuevaSesion = await doCrearSesion(req.body, req.email, req.plan)
+        res.status(201).json(nuevaSesion)
     } catch (e) {
         res.status(e.code || 400).json({ message: e.message })
     }
 }
 
-const modificar = async (req, res) => {
+const obtenerSesiones = async (req, res) => {
     try {
-        const sesion = await sesionesService.modificar(req.params.id, req.body)
-        res.status(200).json(sesion)
+        const resultado = await doObtenerSesiones(req.query)
+        res.status(200).json(resultado)
     } catch (e) {
-        res.status(e.code || 500).json({ message: e.message })
+        res.status(e.code || 400).json({ message: e.message })
     }
 }
 
-const eliminar = async (req, res) => {
+const obtenerSesionPorId = async (req, res) => {
     try {
-        await sesionesService.eliminar(req.params.id)
+        const sesion = await doObtenerSesionPorId(req.params.id)
+        res.status(200).json(sesion)
+    } catch (e) {
+        res.status(e.code || 404).json({ message: e.message })
+    }
+}
+
+const modificarSesion = async (req, res) => {
+    try {
+        const sesionModificada = await doModificarSesion(req.params.id, req.body)
+        res.status(200).json(sesionModificada)
+    } catch (e) {
+        res.status(e.code || 404).json({ message: e.message })
+    }
+}
+
+const eliminarSesion = async (req, res) => {
+    try {
+        await doEliminarSesion(req.params.id)
         res.status(204).send()
     } catch (e) {
-        res.status(e.code || 500).json({ message: e.message })
+        res.status(e.code || 404).json({ message: e.message })
     }
 }
 
-const generarConIA = async (req, res) => {
+const generarSesionConIA = async (req, res) => {
     try {
-        const sesion = await sesionesService.generarConIA(req.params.alumnoEmail)
-        res.status(200).json(sesion)
+        const sesionSugerida = await doGenerarSesionConIA(req.params.alumnoEmail)
+        res.status(200).json({ sesionSugerida })
     } catch (e) {
-        res.status(e.code || 500).json({ message: e.message })
+        res.status(200).json({ 
+            message: 'No se pudo generar la sesión con IA, pero la aplicación sigue funcionando',
+            sesionSugerida: null 
+        })
     }
 }
 
-export { obtenerSesiones, obtenerPorId, crear, modificar, eliminar, generarConIA }
+export {crearSesion, 
+        obtenerSesiones, 
+        obtenerSesionPorId, 
+        modificarSesion, 
+        eliminarSesion, 
+        generarSesionConIA }
