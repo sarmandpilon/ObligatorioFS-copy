@@ -6,28 +6,17 @@
     "_exporter_id": "39584938"
   },
   "variable": [
-    {
-      "key": "token",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "sesionId",
-      "value": "REEMPLAZAR_CON_ID_DE_SESION",
-      "type": "string"
-    },
-    {
-      "key": "tipoId",
-      "value": "REEMPLAZAR_CON_ID_DE_TIPO",
-      "type": "string"
-    }
+    { "key": "token",       "value": "", "type": "string" },
+    { "key": "tokenAlumno", "value": "", "type": "string" },
+    { "key": "sesionId",    "value": "REEMPLAZAR_CON_ID_DE_SESION", "type": "string" },
+    { "key": "tipoId",      "value": "REEMPLAZAR_CON_ID_DE_TIPO",   "type": "string" }
   ],
   "item": [
     {
       "name": "Ping",
       "item": [
         {
-          "name": "Ping",
+          "name": "Ping exitoso",
           "request": {
             "method": "GET",
             "header": [],
@@ -53,7 +42,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"Maria Garcia\",\r\n    \"email\": \"maria2@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "raw": "{\n    \"nombre\": \"Maria Garcia\",\n    \"email\": \"maria2@gmail.com\",\n    \"password\": \"123456\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -67,13 +56,13 @@
           "response": []
         },
         {
-          "name": "Registro con datos inválidos",
+          "name": "Registro profesor exitoso",
           "request": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"J\",\r\n    \"email\": \"esto-no-es-un-email\",\r\n    \"password\": \"123\"\r\n}",
+              "raw": "{\n    \"nombre\": \"Juan Perez\",\n    \"email\": \"juan@gmail.com\",\n    \"password\": \"123456\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -87,21 +76,21 @@
           "response": []
         },
         {
-          "name": "Registro profesor exitoso",
+          "name": "Registro con datos inválidos",
           "request": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"Juan Perez\",\r\n    \"email\": \"juan@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "raw": "{\n    \"nombre\": \"J\",\n    \"email\": \"esto-no-es-un-email\",\n    \"password\": \"123\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
-              "raw": "http://localhost:3005/v1/auth/registro/profesor",
+              "raw": "http://localhost:3005/v1/auth/registro/alumno",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3005",
-              "path": ["v1", "auth", "registro", "profesor"]
+              "path": ["v1", "auth", "registro", "alumno"]
             }
           },
           "response": []
@@ -113,7 +102,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"Juan Perez\",\r\n    \"email\": \"juan@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "raw": "{\n    \"nombre\": \"Juan Perez\",\n    \"email\": \"juan@gmail.com\",\n    \"password\": \"123456\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -127,7 +116,7 @@
           "response": []
         },
         {
-          "name": "Login exitoso",
+          "name": "Login exitoso (profesor)",
           "event": [
             {
               "listen": "test",
@@ -135,7 +124,7 @@
                 "exec": [
                   "const res = pm.response.json();",
                   "if (res.token) {",
-                  "  pm.collectionVariables.set('token', res.token);",
+                  "    pm.collectionVariables.set('token', res.token);",
                   "}"
                 ],
                 "type": "text/javascript"
@@ -147,7 +136,41 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"juan@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "raw": "{\n    \"email\": \"juan@gmail.com\",\n    \"password\": \"123456\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3005/v1/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login exitoso (alumno)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "    pm.collectionVariables.set('tokenAlumno', res.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"maria2@gmail.com\",\n    \"password\": \"123456\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -167,7 +190,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"esto-no-es-un-email\",\r\n    \"password\": \"\"\r\n}",
+              "raw": "{\n    \"email\": \"esto-no-es-un-email\",\n    \"password\": \"\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -187,7 +210,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"juan@gmail.com\",\r\n    \"password\": \"passwordincorrecta\"\r\n}",
+              "raw": "{\n    \"email\": \"juan@gmail.com\",\n    \"password\": \"passwordincorrecta\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -203,10 +226,24 @@
       ]
     },
     {
-      "name": "Tipos de Entrenamientos",
+      "name": "Tipos de Entrenamiento",
       "item": [
         {
           "name": "Crear tipo exitoso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res._id) {",
+                  "    pm.collectionVariables.set('tipoId', res._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
@@ -214,7 +251,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"intervalos\",\r\n    \"descripcion\": \"Entrenamiento de alta intensidad con repeticiones cortas\"\r\n}",
+              "raw": "{\n    \"nombre\": \"intervalos\",\n    \"descripcion\": \"Entrenamiento de alta intensidad con repeticiones cortas\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -236,7 +273,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"intervalos\",\r\n    \"descripcion\": \"Otro intervalo\"\r\n}",
+              "raw": "{\n    \"nombre\": \"intervalos\",\n    \"descripcion\": \"Otro intervalo\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -258,7 +295,49 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"i\"\r\n}",
+              "raw": "{\n    \"nombre\": \"i\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3005/v1/tipos-entrenamiento",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "tipos-entrenamiento"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear tipo sin token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombre\": \"fuerza\",\n    \"descripcion\": \"Entrenamiento de fuerza muscular\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3005/v1/tipos-entrenamiento",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "tipos-entrenamiento"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear tipo sin ser profesor (alumno)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "{{tokenAlumno}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombre\": \"fuerza\",\n    \"descripcion\": \"Entrenamiento de fuerza muscular\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -331,7 +410,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"descripcion\": \"Entrenamiento de alta intensidad con repeticiones cortas y pausas activas\"\r\n}",
+              "raw": "{\n    \"descripcion\": \"Entrenamiento de alta intensidad con repeticiones cortas y pausas activas\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -353,7 +432,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"descripcion\": \"Tipo modificado\"\r\n}",
+              "raw": "{\n    \"descripcion\": \"Tipo modificado\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -362,6 +441,45 @@
               "host": ["localhost"],
               "port": "3005",
               "path": ["v1", "tipos-entrenamiento", "000000000000000000000000"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modificar tipo sin ser profesor (alumno)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "{{tokenAlumno}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"descripcion\": \"Intento de modificacion sin permiso\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3005/v1/tipos-entrenamiento/{{tipoId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "tipos-entrenamiento", "{{tipoId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar tipo sin ser profesor (alumno)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "{{tokenAlumno}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:3005/v1/tipos-entrenamiento/{{tipoId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "tipos-entrenamiento", "{{tipoId}}"]
             }
           },
           "response": []
@@ -407,6 +525,20 @@
       "item": [
         {
           "name": "Crear sesión exitosa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.id) {",
+                  "    pm.collectionVariables.set('sesionId', res.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
@@ -414,7 +546,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"fecha\": \"2026-03-29\",\r\n    \"alumnoEmail\": \"maria2@gmail.com\",\r\n    \"tipoEntrenamiento\": \"intervalos\",\r\n    \"descripcion\": \"Sesión de intervalos cortos\",\r\n    \"calentamiento\": {\r\n        \"duracion\": 15\r\n    },\r\n    \"trabajoPrincipal\": {\r\n        \"descripcion\": \"10 x 400m con 1 min de pausa\",\r\n        \"distancia\": 400,\r\n        \"unidad\": \"metros\",\r\n        \"cantidad\": 10\r\n    },\r\n    \"vueltaCalma\": {\r\n        \"duracion\": 10\r\n    }\r\n}",
+              "raw": "{\n    \"fecha\": \"2026-03-29\",\n    \"alumnoEmail\": \"maria2@gmail.com\",\n    \"tipoEntrenamiento\": \"intervalos\",\n    \"descripcion\": \"Sesión de intervalos cortos\",\n    \"calentamiento\": {\n        \"duracion\": 15\n    },\n    \"trabajoPrincipal\": {\n        \"descripcion\": \"10 x 400m con 1 min de pausa\",\n        \"distancia\": 400,\n        \"unidad\": \"metros\",\n        \"cantidad\": 10\n    },\n    \"vueltaCalma\": {\n        \"duracion\": 10\n    }\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -436,7 +568,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"fecha\": \"2026-03-29\",\r\n    \"alumnoEmail\": \"noexiste@gmail.com\",\r\n    \"tipoEntrenamiento\": \"intervalos\",\r\n    \"calentamiento\": {\r\n        \"duracion\": 15\r\n    },\r\n    \"trabajoPrincipal\": {\r\n        \"descripcion\": \"10 x 400m con 1 min de pausa\",\r\n        \"distancia\": 400,\r\n        \"unidad\": \"metros\"\r\n    },\r\n    \"vueltaCalma\": {\r\n        \"duracion\": 10\r\n    }\r\n}",
+              "raw": "{\n    \"fecha\": \"2026-03-29\",\n    \"alumnoEmail\": \"noexiste@gmail.com\",\n    \"tipoEntrenamiento\": \"intervalos\",\n    \"calentamiento\": {\n        \"duracion\": 15\n    },\n    \"trabajoPrincipal\": {\n        \"descripcion\": \"10 x 400m con 1 min de pausa\",\n        \"distancia\": 400,\n        \"unidad\": \"metros\"\n    },\n    \"vueltaCalma\": {\n        \"duracion\": 10\n    }\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -458,7 +590,49 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"fecha\": \"\",\r\n    \"alumnoEmail\": \"esto-no-es-un-email\"\r\n}",
+              "raw": "{\n    \"fecha\": \"\",\n    \"alumnoEmail\": \"esto-no-es-un-email\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3005/v1/sesiones",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "sesiones"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear sesión sin token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fecha\": \"2026-03-29\",\n    \"alumnoEmail\": \"maria2@gmail.com\",\n    \"tipoEntrenamiento\": \"intervalos\",\n    \"calentamiento\": { \"duracion\": 15 },\n    \"trabajoPrincipal\": { \"descripcion\": \"Test\", \"distancia\": 400, \"unidad\": \"metros\" },\n    \"vueltaCalma\": { \"duracion\": 10 }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3005/v1/sesiones",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "sesiones"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear sesión sin ser profesor (alumno)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "{{tokenAlumno}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fecha\": \"2026-03-29\",\n    \"alumnoEmail\": \"maria2@gmail.com\",\n    \"tipoEntrenamiento\": \"intervalos\",\n    \"calentamiento\": { \"duracion\": 15 },\n    \"trabajoPrincipal\": { \"descripcion\": \"Test\", \"distancia\": 400, \"unidad\": \"metros\" },\n    \"vueltaCalma\": { \"duracion\": 10 }\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -489,6 +663,27 @@
           "response": []
         },
         {
+          "name": "Obtener sesiones paginadas",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "{{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:3005/v1/sesiones?page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "sesiones"],
+              "query": [
+                { "key": "page",  "value": "1"  },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Obtener sesiones por alumno",
           "request": {
             "method": "GET",
@@ -501,7 +696,9 @@
               "host": ["localhost"],
               "port": "3005",
               "path": ["v1", "sesiones"],
-              "query": [{ "key": "alumnoEmail", "value": "maria2@gmail.com" }]
+              "query": [
+                { "key": "alumnoEmail", "value": "maria2@gmail.com" }
+              ]
             }
           },
           "response": []
@@ -519,27 +716,8 @@
               "host": ["localhost"],
               "port": "3005",
               "path": ["v1", "sesiones"],
-              "query": [{ "key": "tipoEntrenamiento", "value": "intervalos" }]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Obtener sesiones paginadas",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "{{token}}" }
-            ],
-            "url": {
-              "raw": "http://localhost:3005/v1/sesiones?page=1&limit=10",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3005",
-              "path": ["v1", "sesiones"],
               "query": [
-                { "key": "page", "value": "1" },
-                { "key": "limit", "value": "10" }
+                { "key": "tipoEntrenamiento", "value": "intervalos" }
               ]
             }
           },
@@ -588,7 +766,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"descripcion\": \"Sesión de intervalos cortos modificada\",\r\n    \"calentamiento\": {\r\n        \"duracion\": 20\r\n    }\r\n}",
+              "raw": "{\n    \"descripcion\": \"Sesión de intervalos cortos modificada\",\n    \"calentamiento\": {\n        \"duracion\": 20\n    }\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -610,7 +788,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"descripcion\": \"Sesión modificada\"\r\n}",
+              "raw": "{\n    \"descripcion\": \"Sesión modificada\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -619,6 +797,45 @@
               "host": ["localhost"],
               "port": "3005",
               "path": ["v1", "sesiones", "000000000000000000000000"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modificar sesión sin ser profesor (alumno)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "{{tokenAlumno}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"descripcion\": \"Intento de modificacion sin permiso\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3005/v1/sesiones/{{sesionId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "sesiones", "{{sesionId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar sesión sin ser profesor (alumno)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "{{tokenAlumno}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:3005/v1/sesiones/{{sesionId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "sesiones", "{{sesionId}}"]
             }
           },
           "response": []
@@ -675,7 +892,7 @@
           "response": []
         },
         {
-          "name": "Generar sesión con IA con alumno inexistente",
+          "name": "Generar sesión con alumno inexistente",
           "request": {
             "method": "GET",
             "header": [
@@ -690,6 +907,23 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Generar sesión sin ser profesor (alumno)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "{{tokenAlumno}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:3005/v1/sesiones/generar/maria2@gmail.com",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "sesiones", "generar", "maria2@gmail.com"]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -698,6 +932,23 @@
       "item": [
         {
           "name": "Cambiar plan profesor a premium",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "{{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:3005/v1/usuarios/profesor/juan@gmail.com/plan",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "usuarios", "profesor", "juan@gmail.com", "plan"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cambiar plan cuando ya es premium",
           "request": {
             "method": "PUT",
             "header": [
@@ -731,6 +982,21 @@
           "response": []
         },
         {
+          "name": "Cambiar plan sin token",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3005/v1/usuarios/profesor/juan@gmail.com/plan",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "usuarios", "profesor", "juan@gmail.com", "plan"]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Subir foto de perfil alumno",
           "request": {
             "method": "PUT",
@@ -746,6 +1012,27 @@
                   "src": ""
                 }
               ]
+            },
+            "url": {
+              "raw": "http://localhost:3005/v1/usuarios/alumno/maria2@gmail.com/foto",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3005",
+              "path": ["v1", "usuarios", "alumno", "maria2@gmail.com", "foto"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subir foto sin enviar imagen",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "{{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
             },
             "url": {
               "raw": "http://localhost:3005/v1/usuarios/alumno/maria2@gmail.com/foto",
