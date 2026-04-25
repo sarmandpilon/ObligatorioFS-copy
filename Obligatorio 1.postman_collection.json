@@ -985,6 +985,105 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Subir foto de perfil exitosa",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "foto",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/usuarios/alumno/maria2@gmail.com/foto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "usuarios",
+                "alumno",
+                "maria2@gmail.com",
+                "foto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subir foto sin enviar imagen (400)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/usuarios/alumno/maria2@gmail.com/foto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "usuarios",
+                "alumno",
+                "maria2@gmail.com",
+                "foto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subir foto con archivo no imagen (400)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "foto",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/usuarios/alumno/maria2@gmail.com/foto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "usuarios",
+                "alumno",
+                "maria2@gmail.com",
+                "foto"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -1041,6 +1140,10 @@
     }
   ],
   "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "https://obligatorio-1-fs-final.vercel.app/v1"
+    },
     {
       "key": "token",
       "value": ""
